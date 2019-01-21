@@ -56,6 +56,15 @@ class App extends React.Component {
     this.setState({ fishes: fishes });
   };
 
+  deleteFish = key => {
+    //1. Take a copy of the current state
+    const fishes = { ...this.state.fishes };
+    //2. Update that state
+    fishes[key] = null; //null because of mirroring the firebase data, to reflect deletion
+    //3. Set that to state
+    this.setState({ fishes }); //{fishes:fishes}
+  };
+
   loadSampleFishes = () => {
     this.setState({ fishes: sampleFishes });
   };
@@ -67,6 +76,15 @@ class App extends React.Component {
     order[key] = order[key] + 1 || 1;
     //3. setState() to update out order state
     this.setState({ order: order });
+  };
+
+  deleteOrder = key => {
+    //1. Take a copy of the current state
+    const order = { ...this.state.order };
+    //2. Update that state
+    delete order[key];
+    //3. Set that to state
+    this.setState({ order });
   };
 
   render() {
@@ -85,10 +103,15 @@ class App extends React.Component {
             ))}
           </ul>
         </div>
-        <Order fishes={this.state.fishes} order={this.state.order} />
+        <Order
+          fishes={this.state.fishes}
+          order={this.state.order}
+          deleteOrder={this.deleteOrder}
+        />
         <Inventory
           addFish={this.addFish}
           updateFish={this.updateFish}
+          deleteFish={this.deleteFish}
           loadSampleFishes={this.loadSampleFishes}
           fishes={this.state.fishes}
         />
