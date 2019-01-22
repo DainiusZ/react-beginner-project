@@ -1,7 +1,14 @@
 import React from "react";
+import PropTypes from "prop-types";
 import { formatPrice } from "../helpers";
 
 class Order extends React.Component {
+  static propTypes = {
+    fishes: ProtoTypes.object,
+    order: ProtoTypes.object,
+    deleteOrder: ProtoTypes.func
+  };
+
   renderOrder = key => {
     const fish = this.props.fishes[key]; //what fish is ordered
     const count = this.props.order[key]; //how many of that fish is ordered
